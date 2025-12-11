@@ -1,14 +1,23 @@
-apiVersion: config.kio.kasten.io/v1alpha1
-kind: BlueprintBinding
+apiVersion: v1
+items:
+- apiVersion: config.kio.kasten.io/v1alpha1
+  kind: BlueprintBinding
+  metadata:
+    name: mongo
+    namespace: kasten-io
+  spec:
+    blueprintRef:
+      name: mongodb-multicontainer-blueprint
+      namespace: kasten-io
+    resources:
+      matchAll:
+      - namespace:
+          operator: In
+          values:
+          - mongodb-logical
+  status:
+    observedGeneration: 1
+    validation: Success
+kind: List
 metadata:
-  name: mongodb-multicontainer-binding
-  namespace: kasten-io
-spec:
-  blueprintName: mongodb-multicontainer-blueprint
-  appSelector:
-    matchLabels:
-      app.kubernetes.io/instance: mongo-logical
-      app.kubernetes.io/name: mongodb
-      app.kubernetes.io/component: mongodb
-  options:
-    kanisterImage: ghcr.io/kanisterio/kanister-tools:0.116.0
+  resourceVersion: ""
