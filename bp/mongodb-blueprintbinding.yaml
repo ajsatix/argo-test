@@ -1,17 +1,14 @@
-apiVersion: k10.kasten.io/v1alpha1
+apiVersion: config.kio.kasten.io/v1alpha1
 kind: BlueprintBinding
 metadata:
   name: mongodb-multicontainer-binding
   namespace: kasten-io
 spec:
   blueprintName: mongodb-multicontainer-blueprint
-
-  # Match the Helm-deployed MongoDB StatefulSet
   appSelector:
     matchLabels:
       app.kubernetes.io/instance: mongo-logical
       app.kubernetes.io/name: mongodb
-
-
+      app.kubernetes.io/component: mongodb
   options:
     kanisterImage: ghcr.io/kanisterio/kanister-tools:0.116.0
